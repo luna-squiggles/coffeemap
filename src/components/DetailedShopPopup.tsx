@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CoffeeShop } from '@/lib/types';
 
@@ -24,6 +23,16 @@ const DetailedShopPopup: React.FC<DetailedShopPopupProps> = ({ shop, onClose }) 
       </div>
     );
   };
+  
+  // Get description from either lowercase or uppercase field
+  const getDescription = () => {
+    if (shop.description) return shop.description;
+    // @ts-ignore - Check for capital 'D' Description field that might be in the CSV
+    if (shop.Description) return shop.Description;
+    return null;
+  };
+  
+  const description = getDescription();
   
   return (
     <div className="detailed-map-popup bg-white rounded-xl w-full max-w-md overflow-hidden shadow-lg animate-fade-in">
@@ -163,10 +172,10 @@ const DetailedShopPopup: React.FC<DetailedShopPopupProps> = ({ shop, onClose }) 
           )}
         </div>
         
-        {/* Description */}
-        {shop.description && (
-          <div className="mb-5">
-            <p className="text-[#373F47] font-mono">{shop.description}</p>
+        {/* Description - Removed heading, kept content */}
+        {description && (
+          <div className="mb-5 border-t border-gray-100 pt-4">
+            <p className="text-[#373F47] font-mono">{description}</p>
           </div>
         )}
         
