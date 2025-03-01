@@ -123,7 +123,7 @@ const CoffeeMap: React.FC<CoffeeMapProps> = ({ shops }) => {
     <div className="relative">
       <div className="map-container rounded-lg overflow-hidden shadow-md relative" ref={mapContainerRef}>
         <img 
-          src="/lovable-uploads/04670d4f-4554-4f24-8a24-107885641e72.png"
+          src="/assets/map.png"
           alt="London Map" 
           className="w-full transition-opacity duration-700"
           style={{ opacity: mapLoaded ? 1 : 0 }}
