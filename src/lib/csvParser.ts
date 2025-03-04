@@ -1,25 +1,19 @@
-
 import { CoffeeShop } from './types';
 
-// Parse CSV content into an array of CoffeeShop objects
+// Function to safely parse CSV while considering quoted values
 export const parseCSV = (content: string): CoffeeShop[] => {
-  // Split into lines and get headers
   const lines = content.split('\n').filter(line => line.trim().length > 0);
   if (lines.length < 2) return [];
-  
-  const headers = lines[0].split(',');
-  
-  // Process each data line
+
+  const headers = parseCSVLine(lines[0]);
+
   return lines.slice(1).map((line, index) => {
-    const values = line.split(',');
-    const shop: Record<string, any> = {
-      id: index.toString() // Add a unique ID for each shop
-    };
-    
-    // Map each column value to its corresponding header
+    const values = parseCSVLine(line);
+    const shop: Record<string, any> = { id: index.toString() };
+
     headers.forEach((header, i) => {
       const value = values[i]?.trim();
-      
+
       // Convert numeric values
       if (['x', 'y', 'quietness', 'vibe'].includes(header)) {
         shop[header] = value ? parseFloat(value) : 0;
@@ -27,9 +21,22 @@ export const parseCSV = (content: string): CoffeeShop[] => {
         shop[header] = value || '';
       }
     });
-    
+
     console.log("Parsed shop:", shop);
-    
+
     return shop as CoffeeShop;
   });
+};
+
+// Helper function to parse a CSV line considering quoted values
+const parseCSVLine = (line: string): string[] => {
+  const regex = /(?:\"([^\"]*)\")|([^,]+)/g;
+  const values: string[] = [];
+  let match;
+  
+  while ((match = regex.exec(line)) !== null) {
+    values.push(match[1] !== undefined ? match[1] : match[2]);
+  }
+
+  return values;
 };
