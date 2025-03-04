@@ -12,13 +12,13 @@ const Index = () => {
   useEffect(() => {
     const loadSampleData = async () => {
       try {
-        const response = await fetch('/sample-data.csv');
+        const response = await fetch('/data.csv');
         const csvContent = await response.text();
         const shops = parseCSV(csvContent);
         setShops(shops);
         console.log("Loaded shops:", shops); // Debug log
       } catch (error) {
-        console.error('Failed to load sample data:', error);
+        console.error('Failed to load data:', error);
       } finally {
         setIsLoading(false);
       }
