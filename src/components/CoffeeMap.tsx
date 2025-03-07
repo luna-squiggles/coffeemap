@@ -121,7 +121,7 @@ const CoffeeMap: React.FC<CoffeeMapProps> = ({ shops }) => {
   
   return (
     <div className="relative">
-      <div className="map-container rounded-lg overflow-hidden shadow-md relative" ref={mapContainerRef}>
+      <div className="map-container rounded-lg overflow-hidden relative" ref={mapContainerRef}>
         <img 
           src="/assets/map.png"
           alt="London Map" 
